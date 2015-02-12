@@ -14,3 +14,8 @@
   (map (lambda (s)
          (string-append s suffix))
        xs))
+
+(define (list-nth-mod xs n)
+  (cond [(< n 0) (error "list-nth-mod: negative number")]
+        [(null? xs) (error "list-nth-mod: empty list")]
+        [#t (car (list-tail xs (remainder n (length xs))))]))
