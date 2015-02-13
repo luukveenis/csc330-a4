@@ -47,3 +47,13 @@
                 (cons (cons (list-nth-mod xs x) (list-nth-mod ys x))
                       (lambda () (f (+ x 1)))))])
     (lambda () (f 0))))
+
+(define (vector-assoc v vec)
+  (define (aux count)
+    (if (>= count (vector-length vec))
+        #f
+        (let ([ref (vector-ref vec count)])
+          (if (and (pair? ref) (equal? (car ref) v))
+              ref
+              (aux (+ count 1))))))
+  (aux 0))
