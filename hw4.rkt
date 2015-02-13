@@ -27,9 +27,7 @@
 
 (define funny-number-stream
   (letrec ([f (lambda (x)
-                (cons (cond [(< x 5) x]
-                            [(= 0 (remainder x 5)) (- 0 x)]
-                            [#t x])
+                (cons (if (= (remainder x 5) 0) (- x) x)
                       (lambda () (f (+ x 1)))))])
     (lambda () (f 1))))
 
