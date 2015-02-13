@@ -38,3 +38,8 @@
                 (let* ([next (if (equal? x "cat.jpg") "dog.jpg" "cat.jpg")])
                   (cons x (lambda () (f next)))))])
     (lambda () (f "cat.jpg"))))
+
+(define (stream-add-zero s)
+  (letrec ([f (lambda (s)
+                (cons (cons 0 (car (s))) (lambda () (f (cdr (s))))))])
+    (lambda () (f s))))
