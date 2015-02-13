@@ -32,3 +32,9 @@
                             [#t x])
                       (lambda () (f (+ x 1)))))])
     (lambda () (f 1))))
+
+(define cat-then-dog
+  (letrec ([f (lambda (x)
+                (let* ([next (if (equal? x "cat.jpg") "dog.jpg" "cat.jpg")])
+                  (cons x (lambda () (f next)))))])
+    (lambda () (f "cat.jpg"))))
