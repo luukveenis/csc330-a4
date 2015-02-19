@@ -57,3 +57,15 @@
               ref
               (aux (+ count 1))))))
   (aux 0))
+
+(define (cached-assoc xs n)
+  (let* ([cache (make-vector n #f)]
+         [current 0])
+    (lambda (v)
+      (let ([cache-lookup (vector-assoc v cache)])
+        (if cache-lookup
+            (cdr cache-lookup)
+            (let ([result (assoc v xs)])
+              (begin (vector-set! cache current (cons v result))
+                     (set! current (if (= n (+ current 1)) 0 (+ current 1)))
+                     result)))))))
